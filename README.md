@@ -12,5 +12,5 @@
 
 ### Pasos para ejecucion:
 1. Correr via terminal: docker-compose up --build
-2. En un navegador ir a: http://localhost:5000
+2. En un navegador ir a: http://localhost:8080
 3. Apagar los contenedores: docker-compose down

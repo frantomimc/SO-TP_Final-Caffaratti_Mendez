@@ -1,0 +1,7 @@
+Lista de libros con su ISBN valido para testear.
+
+Titulo,Paginas,Editorial,Isbn,Costo
+1984,352,Debolsillo,9788499890944,12
+Rayuela,736,Alfaguara,9788420432366,18
+El Principito,130,Salamandra,9788478887194,15
+Sumision,250,Anagrama,9788433979230,30
