@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Interfaz web Python
+  web:
+    build: .
+    container_name: flask-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://admin:password@mongodb:27017/
+      - MONGO_DB=biblioteca
+    volumes:
+      - ./app:/var/www/flask-app
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongo-db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=biblioteca
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+# Persistencia de datos
+volumes:
+  mongodb_data:

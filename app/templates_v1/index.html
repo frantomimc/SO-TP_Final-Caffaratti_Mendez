@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca - Libros</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .success { color: green; padding: 10px; background: #d4edda; }
+        .error { color: red; padding: 10px; background: #f8d7da; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .btn { padding: 5px 10px; text-decoration: none; border-radius: 3px; }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-warning { background: #ffc107; color: black; }
+    </style>
+</head>
+<body>
+    <h1>Gestión de Biblioteca</h1>
+    
+    <!-- Mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <a href="{{ url_for('agregar') }}" class="btn btn-primary">Agregar Nuevo Libro</a>
+    
+    {% if libros %}
+        <h2>Libros Registrados</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Páginas</th>
+                <th>Editorial</th>
+                <th>ISBN</th>
+                <th>Costo USD</th>
+                <th>Acciones</th>
+            </tr>
+            {% for libro in libros %}
+            <tr>
+                <td>{{ libro.id }}</td>
+                <td>{{ libro.titulo }}</td>
+                <td>{{ libro.cantidad_paginas }}</td>
+                <td>{{ libro.editorial }}</td>
+                <td>{{ libro.isbn }}</td>
+                <td>${{ "%.2f"|format(libro.costo_usd) }}</td>
+                <td>
+                    <a href="{{ url_for('editar', libro_id=libro.id) }}" class="btn btn-warning">Editar</a>
+                    <a href="{{ url_for('eliminar', libro_id=libro.id) }}" 
+                       onclick="return confirm('¿Estás seguro de eliminar este libro?')"
+                       class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No hay libros registrados.</p>
+    {% endif %}
+</body>
+</html>

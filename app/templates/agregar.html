@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Libro</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input { padding: 8px; width: 300px; }
+        .btn { padding: 8px 15px; text-decoration: none; border-radius: 3px; }
+        .btn-primary { background: #007bff; color: white; border: none; }
+        .btn-secondary { background: #6c757d; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Agregar Nuevo Libro</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div style="color: red; padding: 10px; background: #f8d7da;">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form method="POST">
+        <div class="form-group">
+            <label for="id">ID *</label>
+            <input type="number" id="id" name="id" required
+            value="{{ datos_previos.id if datos_previos else '' }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="titulo">Título *</label>
+            <input type="text" id="titulo" name="titulo" required
+            value="{{ datos_previos.titulo if datos_previos else '' }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="cantidad_paginas">Cantidad de Páginas *</label>
+            <input type="number" id="cantidad_paginas" name="cantidad_paginas" required
+            value="{{ datos_previos.cantidad_paginas if datos_previos else '' }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="editorial">Editorial</label>
+            <input type="text" id="editorial" name="editorial"
+            value="{{ datos_previos.editorial if datos_previos else '' }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="isbn">ISBN</label>
+            <input type="text" id="isbn" name="isbn"
+            value="{{ datos_previos.isbn if datos_previos else '' }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="costo_usd">Costo en USD *</label>
+            <input type="number" step="0.01" id="costo_usd" name="costo_usd" required
+            value="{{ datos_previos.costo_usd if datos_previos else '' }}">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Guardar Libro</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</body>
+</html>
